@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -11,11 +12,22 @@ export default function Form() {
     termsAccepted: false,
   });
 
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [showpassword, setshowpassword]= useState({
+    password: false,
+    confirmPassword: false
+  })
+
+  function togglePasswordVisibility(field) {
+    setshowpassword(prevState => ({
+      ...prevState,
+      [field]: !prevState[field] 
+    }))  
+  }
 
   function handleChange(e) {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const inputValue = type === "checkbox" ? checked : value;
     setFormData({
       ...formData,
@@ -105,13 +117,22 @@ export default function Form() {
 
       <label htmlFor="password">
         Password
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
+        <div className="password-wrapper">
+          <input
+            type={showpassword.password ? "text" : "password"}
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button 
+            type="button" 
+            className="password-toggle-btn" 
+            onClick={() => togglePasswordVisibility('password')}
+          >
+            {showpassword.password ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
         {formErrors.password && (
           <p className="error">{formErrors.password}</p>
         )}
@@ -119,13 +140,22 @@ export default function Form() {
 
       <label htmlFor="confirmPassword">
         Confirm Password
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
+        <div className="password-wrapper">
+          <input
+            type={showpassword.confirmPassword ? "text" : "password"}
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          <button 
+            type="button" 
+            className="password-toggle-btn" 
+            onClick={() => togglePasswordVisibility('confirmPassword')}
+          >
+            {showpassword.confirmPassword ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
         {formErrors.confirmPassword && (
           <p className="error">{formErrors.confirmPassword}</p>
         )}

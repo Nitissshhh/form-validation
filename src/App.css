@@ -221,3 +221,55 @@ button[type="submit"]:active {
   color: var(--label-color);
   font-size: 1.1rem;
 }
+
+/* ==========================================================================
+   Password Input with Visibility Toggle
+   ========================================================================== */
+
+/* 1. Create a wrapper to position the button relative to */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 2. Make the input field take up the full width inside the wrapper */
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  width: 100%;
+  /* Add padding to the right to make space for the button */
+  padding-right: 50px; 
+}
+
+/* 3. Style and position the visibility toggle button */
+.password-toggle-btn {
+  position: absolute;
+  right: 10px; /* Position from the right */
+  top: 50%;
+  transform: translateY(-50%);
+  
+  /* Remove default button styles */
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  
+  /* Style the icon */
+  font-size: 1.25rem;
+  color: var(--label-color);
+  line-height: 1; /* Ensures the icon is vertically centered */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  background-color: var(--background-body);
+}
+
+/* Optional: remove the focus ring from the icon button */
+.password-toggle-btn:focus {
+  outline: none;
+}
